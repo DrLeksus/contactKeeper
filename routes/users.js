@@ -1,8 +1,12 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const config = require("config");
 const router = express.Router();
 // https://express-validator.github.io/docs/
 const { check, validationResult } = require("express-validator");
+
+// https://github.com/auth0/node-jsonwebtoken
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 
@@ -39,19 +43,34 @@ router.post(
 
       // user.password = await bcrypt.hash(password, salt);
 
+      // await user.save();
+
       await bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, function(err, hash) {
           // Store hash in your password DB.
           if (err) console.log("err", err);
           user.password = hash;
-          console.log("hash", hash);
           user.save();
         });
       });
 
-      // await user.save();
+      const payload = {
+        user: {
+          id: user.id
+        }
+      };
 
-      res.send("User has been saved");
+      jwt.sign(
+        payload,
+        config.get("jwtSecret"),
+        {
+          expiresIn: 36000
+        },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       console.error(err);
       res.status(500).send("Server Error");
