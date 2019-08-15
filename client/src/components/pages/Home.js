@@ -1,9 +1,17 @@
 import React from "react";
+import Contacts from "../contacts/Contacts";
+import ContactForm from "../contacts/ContactForm";
 
 const Home = () => {
   return (
-    <div>
-      <h2>Home</h2>
+    <div className="grid-2">
+      {/* <h2>Home</h2> */}
+      <div>
+        <ContactForm />
+      </div>
+      <div>
+        <Contacts />
+      </div>
     </div>
   );
 };
