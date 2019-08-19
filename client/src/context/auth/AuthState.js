@@ -12,7 +12,7 @@ import {
   CLEAR_ERRORS
 } from "../types";
 
-const authState = props => {
+const AuthState = props => {
   const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,

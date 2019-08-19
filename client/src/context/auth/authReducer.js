@@ -11,10 +11,10 @@ import {
 
 export default (state, action) => {
   switch (action.type) {
-    case REGISTER_SUCCESS:
-      return {
-        ...state
-      };
+    // case REGISTER_SUCCESS:
+    //   return {
+    //     ...state
+    //   };
     default:
       return state;
   }
