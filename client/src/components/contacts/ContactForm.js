@@ -63,7 +63,11 @@ const ContactForm = () => {
     clearCurrent();
     console.log("r we clear?");
   };
-
+  /**
+|--------------------------------------------------
+| Form
+|--------------------------------------------------
+*/
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="text-primary">

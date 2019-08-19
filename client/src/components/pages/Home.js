@@ -1,15 +1,16 @@
 import React from "react";
+import ContactFilter from "../contacts/ContactFilter";
 import Contacts from "../contacts/Contacts";
 import ContactForm from "../contacts/ContactForm";
 
 const Home = () => {
   return (
     <div className="grid-2">
-      {/* <h2>Home</h2> */}
       <div>
         <ContactForm />
       </div>
       <div>
+        <ContactFilter />
         <Contacts />
       </div>
     </div>
