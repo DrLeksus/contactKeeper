@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
 
 const Login = () => {
   const [user, setUser] = useState({
