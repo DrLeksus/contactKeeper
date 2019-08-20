@@ -1,5 +1,7 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import setAuthToken from "./utils/setAuthToken";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Navbar from "./components/layout/Navbar.js";
@@ -11,6 +13,8 @@ import "./App.css";
 import ContactState from "./context/contact/ContactState";
 import AuthState from "./context/auth/AuthState";
 import AlertState from "./context/alert/AlertState";
+
+localStorage.token && setAuthToken(localStorage.token);
 
 const App = () => {
   return (
