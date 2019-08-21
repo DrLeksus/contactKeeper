@@ -1,17 +1,20 @@
 import React, { useContext, Fragment, useEffect } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ContactContext from "../../context/contact/contactContext";
+import AuthContext from "../../context/auth/authContext";
 import ContactItem from "./ContactItem";
 import Spinner from "../layout/Spinner";
 
 const Contacts = () => {
   useEffect(() => {
-    getContacts();
+    isAuthenticated && getContacts();
     // !loading && getContacts();
     // eslint-disable-next-line
   }, []);
 
   const contactContext = useContext(ContactContext);
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
   // let { contacts, filtered, getContacts, loading } = contactContext;
   let { contacts, filtered, getContacts } = contactContext;
 

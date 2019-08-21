@@ -36,7 +36,7 @@ const ContactState = props => {
       });
     } catch (err) {
       console.log("err from getContatcs", err);
-      dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
+      dispatch({ type: CONTACT_ERROR, payload: err.response.data.msg });
     }
   };
 
