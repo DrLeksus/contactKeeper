@@ -1,25 +1,42 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext, Fragment, useEffect } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ContactContext from "../../context/contact/contactContext";
+import AuthContext from "../../context/auth/authContext";
 import ContactItem from "./ContactItem";
+import Spinner from "../layout/Spinner";
 
 const Contacts = () => {
-  const contactContext = useContext(ContactContext);
-  let { contacts, filtered } = contactContext;
+  useEffect(() => {
+    isAuthenticated && getContacts();
+    // !loading && getContacts();
+    // eslint-disable-next-line
+  }, []);
 
-  if (contacts.length === 0)
+  const contactContext = useContext(ContactContext);
+  const authContext = useContext(AuthContext);
+  const { isAuthenticated } = authContext;
+  // let { contacts, filtered, getContacts, loading } = contactContext;
+  let { contacts, filtered, getContacts } = contactContext;
+
+  // if (contacts !== null && contacts.length === 0 && !loading)
+  if (contacts !== null && contacts.length === 0)
     return <h4 className="text-center">Please add a contact</h4>;
   filtered && ([contacts, filtered] = [filtered, contacts]);
 
   return (
     <Fragment>
-      <TransitionGroup>
-        {contacts.map(contact => (
-          <CSSTransition key={contact.id} timeout={1000} classNames="item">
-            <ContactItem contact={contact} />
-          </CSSTransition>
-        ))}
-      </TransitionGroup>
+      {contacts !== null ? (
+        // {contacts !== null && !loading ? (
+        <TransitionGroup>
+          {contacts.map(contact => (
+            <CSSTransition key={contact._id} timeout={1000} classNames="item">
+              <ContactItem contact={contact} />
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      ) : (
+        <Spinner />
+      )}
     </Fragment>
   );
 };
