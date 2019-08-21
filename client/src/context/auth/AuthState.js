@@ -28,7 +28,7 @@ const AuthState = props => {
   // Load user
   const loadUser = async () => {
     // load token into global header
-    localStorage.token && setAuthToken(localStorage.token);
+    setAuthToken(localStorage.token);
 
     try {
       const res = await axios.get("/api/auth");
@@ -94,6 +94,7 @@ const AuthState = props => {
 
   // Logout
   const logout = () => {
+    setAuthToken();
     dispatch({
       type: LOGOUT
     });
