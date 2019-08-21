@@ -10,8 +10,10 @@ const Home = () => {
   const { isAuthenticated, loadUser } = authContext;
 
   useEffect(() => {
-    console.log("axios.defaults.headers.common", axios.defaults.headers.common);
-    isAuthenticated && loadUser();
+    // console.log("axios.defaults.headers.common", axios.defaults.headers.common);
+    // isAuthenticated && loadUser();
+    loadUser();
+    // localStorage.token && loadUser();
     // eslint-disable-next-line
   }, []);
 
