@@ -7,11 +7,10 @@ import axios from "axios";
 
 const Home = () => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, loadUser } = authContext;
+  const { loadUser } = authContext;
 
   useEffect(() => {
-    console.log("axios.defaults.headers.common", axios.defaults.headers.common);
-    isAuthenticated && loadUser();
+    loadUser();
     // eslint-disable-next-line
   }, []);
 
