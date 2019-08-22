@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const { check, validationResult } = require("express-validator");
+
 const User = require("../models/User");
 const Contact = require("../models/Contact");
-const auth = require("../middleware/auth");
 
-/**
-|--------------------------------------------------
-| GET
-|--------------------------------------------------
-// @route     GET api/contacts/
+// @route     GET api/contacts
 // @desc      Get all users contacts
 // @access    Private
-*/
 router.get("/", auth, async (req, res) => {
   try {
     const contacts = await Contact.find({ user: req.user.id }).sort({
@@ -20,19 +16,14 @@ router.get("/", auth, async (req, res) => {
     });
     res.json(contacts);
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error.");
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 
-/**
-|--------------------------------------------------
-| POST
-|--------------------------------------------------
 // @route     POST api/contacts
-// @desc      Add new contacts
+// @desc      Add new contact
 // @access    Private
-*/
 router.post(
   "/",
   [
@@ -49,7 +40,6 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    // console.log("req.body", req.body);
     const { name, email, phone, type } = req.body;
 
     try {
@@ -60,24 +50,24 @@ router.post(
         type,
         user: req.user.id
       });
+
       const contact = await newContact.save();
+
       res.json(contact);
-    } catch (err) {}
+    } catch (err) {
+      console.error(er.message);
+      res.status(500).send("Server Error");
+    }
   }
 );
 
-/**
-|--------------------------------------------------
-| PUT
-|--------------------------------------------------
 // @route     PUT api/contacts/:id
 // @desc      Update contact
 // @access    Private
-*/
 router.put("/:id", auth, async (req, res) => {
   const { name, email, phone, type } = req.body;
 
-  // Build contact object with the request values
+  // Build contact object
   const contactFields = {};
   if (name) contactFields.name = name;
   if (email) contactFields.email = email;
@@ -85,7 +75,6 @@ router.put("/:id", auth, async (req, res) => {
   if (type) contactFields.type = type;
 
   try {
-    // Specified contact from the DB
     let contact = await Contact.findById(req.params.id);
 
     if (!contact) return res.status(404).json({ msg: "Contact not found" });
@@ -103,19 +92,14 @@ router.put("/:id", auth, async (req, res) => {
 
     res.json(contact);
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error.");
+    console.error(er.message);
+    res.status(500).send("Server Error");
   }
 });
 
-/**
-|--------------------------------------------------
-| DELETE
-|--------------------------------------------------
-// @route     DELETE api/contacts
+// @route     DELETE api/contacts/:id
 // @desc      Delete contact
 // @access    Private
-*/
 router.delete("/:id", auth, async (req, res) => {
   try {
     let contact = await Contact.findById(req.params.id);
@@ -128,10 +112,11 @@ router.delete("/:id", auth, async (req, res) => {
     }
 
     await Contact.findByIdAndRemove(req.params.id);
+
     res.json({ msg: "Contact removed" });
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error.");
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 

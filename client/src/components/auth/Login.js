@@ -3,8 +3,8 @@ import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alert/alertContext";
 
 const Login = props => {
-  const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
   const { login, error, clearErrors, isAuthenticated } = authContext;
@@ -14,7 +14,7 @@ const Login = props => {
       props.history.push("/");
     }
 
-    if (error === "Invalid Credentials") {
+    if (error === "Unknown Email") {
       setAlert(error, "danger");
       clearErrors();
     }

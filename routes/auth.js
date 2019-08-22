@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const config = require("config");
-const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const config = require("config");
 const auth = require("../middleware/auth");
+const { check, validationResult } = require("express-validator");
+
+const User = require("../models/User");
 
 // @route     GET api/auth
 // @desc      Get logged in user
@@ -15,65 +16,60 @@ router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user.id).select("-password");
     res.json(user);
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error.");
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 
 // @route     POST api/auth
-// @desc      Auth user and get token
+// @desc      Auth user & get token
 // @access    Public
 router.post(
   "/",
   [
-    // Express-Validator Checks
-    check("email", "Please your email").isEmail(),
-    check("password", "Enter your password").exists()
+    check("email", "Please include a valid email").isEmail(),
+    check("password", "Password is required").exists()
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    // Since request is valid , let's move on
+
     const { email, password } = req.body;
 
     try {
-      // Get the user
-      // Look for the provided email in the DB & check if pw matches
       let user = await User.findOne({ email });
 
       if (!user) {
-        return res.status(400).json({ msg: "Unknown Email" });
+        return res.status(400).json({ msg: "Invalid Credentials" });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res.status(400).json({ msg: "Wrong password" });
+        return res.status(400).json({ msg: "Invalid Credentials" });
       }
-      // Prepare the payload
+
       const payload = {
         user: {
           id: user.id
         }
       };
 
-      // Encode the token, then send token
       jwt.sign(
         payload,
         config.get("jwtSecret"),
         {
-          expiresIn: 36000
+          expiresIn: 360000
         },
         (err, token) => {
           if (err) throw err;
           res.json({ token });
-          // console.log("token", token);
         }
       );
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err.message);
       res.status(500).send("Server Error");
     }
   }

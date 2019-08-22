@@ -3,16 +3,9 @@ import ContactContext from "../../context/contact/contactContext";
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
+
   const { addContact, updateContact, clearCurrent, current } = contactContext;
 
-  const [contact, setContact] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    type: "personal"
-  });
-
-  const { name, email, phone, type } = contact;
   useEffect(() => {
     if (current !== null) {
       setContact(current);
@@ -26,11 +19,14 @@ const ContactForm = () => {
     }
   }, [contactContext, current]);
 
-  /**
-  |--------------------------------------------------
-  | Handler
-  |--------------------------------------------------
-  */
+  const [contact, setContact] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    type: "personal"
+  });
+
+  const { name, email, phone, type } = contact;
 
   const onChange = e =>
     setContact({ ...contact, [e.target.name]: e.target.value });
@@ -48,11 +44,7 @@ const ContactForm = () => {
   const clearAll = () => {
     clearCurrent();
   };
-  /**
-|--------------------------------------------------
-| Form
-|--------------------------------------------------
-*/
+
   return (
     <form onSubmit={onSubmit}>
       <h2 className="text-primary">
@@ -73,19 +65,19 @@ const ContactForm = () => {
         onChange={onChange}
       />
       <input
-        name="phone"
         type="text"
         placeholder="Phone"
+        name="phone"
         value={phone}
         onChange={onChange}
       />
       <h5>Contact Type</h5>
       <input
-        name="type"
         type="radio"
+        name="type"
         value="personal"
-        onChange={onChange}
         checked={type === "personal"}
+        onChange={onChange}
       />{" "}
       Personal{" "}
       <input

@@ -1,16 +1,14 @@
-import React from "react";
+import React from 'react';
 
 const About = () => {
   return (
     <div>
-      <h2>About this App</h2>
-      <p>
-        Organize your contacts, store them in this friendly API and have them
-        ready when you need them
+      <h1>About This App</h1>
+      <p className='my-1'>
+        This is a full stack React app for keeping contacts
       </p>
-      <p className="bg-dark p my">
-        <strong>Version: </strong>
-        1.0.0
+      <p className='bg-dark p'>
+        <strong>Version: </strong> 1.0.0
       </p>
     </div>
   );

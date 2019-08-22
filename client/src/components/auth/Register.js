@@ -10,7 +10,9 @@ const Register = props => {
   const { register, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    isAuthenticated && props.history.push("/");
+    if (isAuthenticated) {
+      props.history.push("/");
+    }
 
     if (error === "User already exists") {
       setAlert(error, "danger");
