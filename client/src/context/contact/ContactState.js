@@ -35,7 +35,7 @@ const ContactState = props => {
         payload: res.data
       });
     } catch (err) {
-      console.log("err from getContatcs", err);
+      // console.log("err from getContatcs", err);
       dispatch({ type: CONTACT_ERROR, payload: err.response.data.msg });
     }
   };
@@ -54,7 +54,7 @@ const ContactState = props => {
         payload: res.data
       });
     } catch (err) {
-      // console.log("err from add contact", err.response.data.errors[0].msg);
+      // // console.log("err from add contact", err.response.data.errors[0].msg);
       dispatch({
         type: CONTACT_ERROR,
         payload: err.response.data.errors[0].msg
@@ -99,7 +99,7 @@ const ContactState = props => {
 
   // Update contact
   const updateContact = async contact => {
-    console.log("contact from the update function", contact);
+    // console.log("contact from the update function", contact);
 
     const config = {
       headers: {
@@ -118,7 +118,7 @@ const ContactState = props => {
         payload: res.data
       });
     } catch (err) {
-      console.log("err from update attempt", err);
+      // console.log("err from update attempt", err);
       dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
     }
   };

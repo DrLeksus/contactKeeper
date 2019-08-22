@@ -12,51 +12,51 @@ import {
 } from "../types";
 
 export default (state, action) => {
-  console.log("action.payload", action.payload);
+  // console.log("action.payload", action.payload);
   switch (action.type) {
     case GET_CONTACTS:
-      console.log("GET_CONTACTS");
+      // console.log("GET_CONTACTS");
       return {
         ...state,
         contacts: action.payload,
         loading: false
       };
     case ADD_CONTACT:
-      console.log("ADD_CONTACT");
+      // console.log("ADD_CONTACT");
       return {
         ...state,
         loading: false,
         contacts: [action.payload, ...state.contacts]
       };
     case DELETE_CONTACT:
-      console.log("DELETE_CONTACT");
+      // console.log("DELETE_CONTACT");
       return {
         ...state,
         loading: false,
         contacts: state.contacts.filter(c => c._id !== action.payload)
       };
     case SET_CURRENT:
-      console.log("SET_CURRENT");
+      // console.log("SET_CURRENT");
       return {
         ...state,
         current: action.payload
       };
     case CLEAR_CURRENT:
-      console.log("CLEAR_CURRENT");
+      // console.log("CLEAR_CURRENT");
       return {
         ...state,
         loading: false,
         current: null
       };
     case CLEAR_CONTACTS:
-      console.log("CLEAR_CONTACTS");
+      // console.log("CLEAR_CONTACTS");
       return {
         ...state,
         contacts: null,
         loading: false
       };
     case UPDATE_CONTACT:
-      console.log("UPDATE_CONTACT");
+      // console.log("UPDATE_CONTACT");
       return {
         ...state,
         loading: false,
@@ -65,7 +65,7 @@ export default (state, action) => {
         )
       };
     case FILTER_CONTACTS:
-      console.log("FILTER_CONTACTS");
+      // console.log("FILTER_CONTACTS");
       return {
         ...state,
         filtered: state.contacts.filter(contact => {
@@ -74,7 +74,7 @@ export default (state, action) => {
         })
       };
     case CLEAR_FILTER:
-      console.log("CLEAR_FILTER");
+      // console.log("CLEAR_FILTER");
       return {
         ...state,
         filtered: null

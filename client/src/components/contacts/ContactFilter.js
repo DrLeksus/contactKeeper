@@ -12,7 +12,7 @@ const ContactFilter = () => {
   // }, [contactContext, filtered, text]);
 
   const handleChange = e => {
-    console.log("text", text);
+    // console.log("text", text);
     text.current.value ? filterContacts(e.target.value) : clearFilter();
   };
 
