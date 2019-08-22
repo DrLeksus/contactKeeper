@@ -1,13 +1,12 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import setAuthToken from "./utils/setAuthToken";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
-import Navbar from "./components/layout/Navbar.js";
-import Alerts from "./components/layout/Alerts.js";
-import Home from "./components/pages/Home.js";
-import About from "./components/pages/About.js";
+import Navbar from "./components/layout/Navbar";
+import Alerts from "./components/layout/Alerts";
+import Home from "./components/pages/Home";
+import About from "./components/pages/About";
 import "./App.css";
 
 import ContactState from "./context/contact/ContactState";
@@ -16,7 +15,9 @@ import AlertState from "./context/alert/AlertState";
 
 import PrivateRoute from "./components/routing/PrivateRoute";
 
-localStorage.token && setAuthToken(localStorage.token);
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   return (
@@ -30,11 +31,9 @@ const App = () => {
                 <Alerts />
                 <Switch>
                   <PrivateRoute exact path="/" component={Home} />
-                  {/* <Route exact path="/" component={Home} /> */}
                   <Route exact path="/about" component={About} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
-                  {/* <Route exact path="/" component={} /> */}
                 </Switch>
               </div>
             </Fragment>

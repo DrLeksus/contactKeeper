@@ -3,11 +3,9 @@ import ContactContext from "../../context/contact/contactContext";
 
 const ContactForm = () => {
   const contactContext = useContext(ContactContext);
-  const { addContact, current, clearCurrent, updateContact } = contactContext;
+  const { addContact, updateContact, clearCurrent, current } = contactContext;
 
-  // Local state to this component
   const [contact, setContact] = useState({
-    id: "",
     name: "",
     email: "",
     phone: "",
@@ -15,14 +13,11 @@ const ContactForm = () => {
   });
 
   const { name, email, phone, type } = contact;
-
-  // Did Update..
   useEffect(() => {
     if (current !== null) {
       setContact(current);
     } else {
       setContact({
-        id: "",
         name: "",
         email: "",
         phone: "",
@@ -37,31 +32,21 @@ const ContactForm = () => {
   |--------------------------------------------------
   */
 
-  // Input change
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setContact({ ...contact, [name]: value });
-  };
+  const onChange = e =>
+    setContact({ ...contact, [e.target.name]: e.target.value });
 
-  // Submit form
-  const handleSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    current === null ? addContact(contact) : updateContact(contact);
-
-    // Clearing back to default
-    clearCurrent();
-    // setContact({
-    //   name: "",
-    //   email: "",
-    //   phone: "",
-    //   type: "personal"
-    // });
+    if (current === null) {
+      addContact(contact);
+    } else {
+      updateContact(contact);
+    }
+    clearAll();
   };
 
-  // clear
   const clearAll = () => {
     clearCurrent();
-    console.log("r we clear?");
   };
   /**
 |--------------------------------------------------
@@ -69,64 +54,61 @@ const ContactForm = () => {
 |--------------------------------------------------
 */
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <h2 className="text-primary">
-        {current ? "Update contact" : "Add contact"}
+        {current ? "Edit Contact" : "Add Contact"}
       </h2>
       <input
-        name="name"
         type="text"
         placeholder="Name"
+        name="name"
         value={name}
-        onChange={handleChange}
+        onChange={onChange}
       />
       <input
-        name="email"
-        type="text"
+        type="email"
         placeholder="Email"
+        name="email"
         value={email}
-        onChange={handleChange}
+        onChange={onChange}
       />
       <input
         name="phone"
         type="text"
         placeholder="Phone"
         value={phone}
-        onChange={handleChange}
+        onChange={onChange}
       />
       <h5>Contact Type</h5>
-      <div className="dflex" />
-      <label>
-        <input
-          name="type"
-          type="radio"
-          value="personal"
-          onChange={handleChange}
-          checked={type === "personal"}
-        />{" "}
-        Personal{" "}
-      </label>
-      <label>
-        <input
-          name="type"
-          type="radio"
-          value="professional"
-          onChange={handleChange}
-          checked={type === "professional"}
-        />{" "}
-        Professional
-      </label>
+      <input
+        name="type"
+        type="radio"
+        value="personal"
+        onChange={onChange}
+        checked={type === "personal"}
+      />{" "}
+      Personal{" "}
+      <input
+        type="radio"
+        name="type"
+        value="professional"
+        checked={type === "professional"}
+        onChange={onChange}
+      />{" "}
+      Professional
       <div>
         <input
           type="submit"
-          value={current ? "Update" : "Add"}
+          value={current ? "Update Contact" : "Add Contact"}
           className="btn btn-primary btn-block"
         />
       </div>
       {current && (
-        <button onClick={clearAll} className="btn btn-dark btn-block">
-          Clear
-        </button>
+        <div>
+          <button className="btn btn-light btn-block" onClick={clearAll}>
+            Clear
+          </button>
+        </div>
       )}
     </form>
   );

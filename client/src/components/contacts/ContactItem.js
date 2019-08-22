@@ -27,15 +27,13 @@ const ContactItem = ({ contact }) => {
       </h3>
       <ul className="list">
         {email && (
-          <li className="my">
-            <i className="fas fa-envelope-open" />
-            {email}
+          <li>
+            <i className="fas fa-envelope-open" /> {email}
           </li>
         )}
         {phone && (
-          <li className="my">
-            <i className="fas fa-phone" />
-            {phone}
+          <li>
+            <i className="fas fa-phone" /> {phone}
           </li>
         )}
       </ul>
@@ -45,7 +43,7 @@ const ContactItem = ({ contact }) => {
           className="btn btn-dark btn-sm">
           Edit
         </button>
-        <button onClick={() => onDelete()} className="btn btn-danger btn-sm">
+        <button className="btn btn-danger btn-sm" onClick={onDelete}>
           Delete
         </button>
       </p>

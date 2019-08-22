@@ -7,13 +7,17 @@ const ContactFilter = () => {
   const text = useRef("");
 
   useEffect(() => {
-    !filtered && (text.current.value = "");
+    if (filtered === null) {
+      text.current.value = "";
+    }
   });
-  // }, [contactContext, filtered, text]);
 
-  const handleChange = e => {
-    console.log("text", text);
-    text.current.value ? filterContacts(e.target.value) : clearFilter();
+  const onChange = e => {
+    if (text.current.value !== "") {
+      filterContacts(e.target.value);
+    } else {
+      clearFilter();
+    }
   };
 
   return (
@@ -21,8 +25,8 @@ const ContactFilter = () => {
       <input
         type="text"
         ref={text}
-        placeholder="Filter contacts.."
-        onChange={handleChange}
+        placeholder="Filter Contacts..."
+        onChange={onChange}
       />
     </form>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
 
 const Login = props => {
   const authContext = useContext(AuthContext);
@@ -10,33 +10,35 @@ const Login = props => {
   const { login, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
-    isAuthenticated && props.history.push("/");
+    if (isAuthenticated) {
+      props.history.push("/");
+    }
 
-    if (error === "Unknown Email") {
+    if (error === "Invalid Credentials") {
       setAlert(error, "danger");
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, props.history, isAuthenticated]);
+  }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     email: "",
     password: ""
   });
+
   const { email, password } = user;
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
-  const handleSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    console.log("Login Submit");
     if (email === "" || password === "") {
-      setAlert("Please fill out all fields", "danger");
+      setAlert("Please fill in all fields", "danger");
     } else {
-      login(user);
+      login({
+        email,
+        password
+      });
     }
   };
 
@@ -45,14 +47,15 @@ const Login = props => {
       <h1>
         Account <span className="text-primary">Login</span>
       </h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email Address</label>
           <input
             type="email"
             name="email"
             value={email}
-            onChange={handleChange}
+            onChange={onChange}
+            required
           />
         </div>
         <div className="form-group">
@@ -61,12 +64,13 @@ const Login = props => {
             type="password"
             name="password"
             value={password}
-            onChange={handleChange}
+            onChange={onChange}
+            required
           />
         </div>
         <input
           type="submit"
-          value="Sign up"
+          value="Login"
           className="btn btn-primary btn-block"
         />
       </form>
