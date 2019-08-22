@@ -9,9 +9,9 @@ const connectDB = async () => {
       useCreateIndex: true,
       useFindAndModify: false
     });
-    console.log("MongoDB connected..");
+    // console.log("MongoDB connected..");
   } catch (err) {
-    console.log(err.message);
+    // console.log(err.message);
     process.exit(1);
   }
 };
@@ -21,8 +21,8 @@ const connectDB = async () => {
 //     useNewUrlParser: true,
 //       useCreateIndex: true,
 //       useFindAndModify: false
-//   }).then(() => console.log('MongoDB connected..')).catch(err => {
-//     console.log(err.message)
+//   }).then(() => // console.log('MongoDB connected..')).catch(err => {
+//     // console.log(err.message)
 //     process.exit(1)
 //   })
 // }

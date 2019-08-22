@@ -48,7 +48,7 @@ router.post(
       await bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, function(err, hash) {
           // Store hash in your password DB.
-          if (err) console.log("err", err);
+          if (err) // console.log("err", err);
           user.password = hash;
           user.save();
         });
