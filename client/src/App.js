@@ -30,11 +30,9 @@ const App = () => {
                 <Alerts />
                 <Switch>
                   <PrivateRoute exact path="/" component={Home} />
-                  {/* <Route exact path="/" component={Home} /> */}
                   <Route exact path="/about" component={About} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
-                  {/* <Route exact path="/" component={} /> */}
                 </Switch>
               </div>
             </Fragment>
