@@ -61,7 +61,7 @@ const ContactForm = () => {
   // clear
   const clearAll = () => {
     clearCurrent();
-    console.log("r we clear?");
+    // console.log("r we clear?");
   };
   /**
 |--------------------------------------------------

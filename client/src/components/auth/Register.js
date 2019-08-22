@@ -41,7 +41,7 @@ const Register = props => {
     } else if (password !== password2) {
       setAlert("Your passwords don't match", "danger");
     } else {
-      console.log("Register Submit");
+      // console.log("Register Submit");
       register({ name, email, password });
     }
   };
