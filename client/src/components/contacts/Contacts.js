@@ -7,7 +7,8 @@ import Spinner from "../layout/Spinner";
 
 const Contacts = () => {
   useEffect(() => {
-    isAuthenticated && getContacts();
+    // isAuthenticated && getContacts();
+    getContacts();
     // !loading && getContacts();
     // eslint-disable-next-line
   }, []);

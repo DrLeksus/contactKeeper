@@ -49,7 +49,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    console.log("req.body", req.body);
+    // console.log("req.body", req.body);
     const { name, email, phone, type } = req.body;
 
     try {

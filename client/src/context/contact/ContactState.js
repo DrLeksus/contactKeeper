@@ -54,16 +54,25 @@ const ContactState = props => {
         payload: res.data
       });
     } catch (err) {
-      dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
+      // console.log("err from add contact", err.response.data.errors[0].msg);
+      dispatch({
+        type: CONTACT_ERROR,
+        payload: err.response.data.errors[0].msg
+      });
     }
   };
 
-  // Delte contact
-  const deleteContact = id => {
-    dispatch({
-      type: DELETE_CONTACT,
-      payload: id
-    });
+  // Delete contact
+  const deleteContact = async id => {
+    try {
+      await axios.delete(`/api/contacts/${id}`);
+      dispatch({
+        type: DELETE_CONTACT,
+        payload: id
+      });
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
+    }
   };
 
   // Clear contact
@@ -89,12 +98,29 @@ const ContactState = props => {
   };
 
   // Update contact
-  const updateContact = contact => {
-    console.log("contact", contact);
-    dispatch({
-      type: UPDATE_CONTACT,
-      payload: contact
-    });
+  const updateContact = async contact => {
+    console.log("contact from the update function", contact);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    try {
+      const res = await axios.put(
+        `/api/contacts/${contact._id}`,
+        contact,
+        config
+      );
+      dispatch({
+        type: UPDATE_CONTACT,
+        payload: res.data
+      });
+    } catch (err) {
+      console.log("err from update attempt", err);
+      dispatch({ type: CONTACT_ERROR, payload: err.response.msg });
+    }
   };
 
   // Filter contacts

@@ -46,16 +46,16 @@ const ContactForm = () => {
   // Submit form
   const handleSubmit = e => {
     e.preventDefault();
-    current ? updateContact(contact) : addContact(contact);
+    current === null ? addContact(contact) : updateContact(contact);
 
     // Clearing back to default
     clearCurrent();
-    setContact({
-      name: "",
-      email: "",
-      phone: "",
-      type: "personal"
-    });
+    // setContact({
+    //   name: "",
+    //   email: "",
+    //   phone: "",
+    //   type: "personal"
+    // });
   };
 
   // clear
