@@ -373,7 +373,7 @@ table th {
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   padding: 0.7rem 2rem;
   z-index: 1;
   width: 100%;
@@ -385,6 +385,7 @@ table th {
 
 .navbar ul {
   display: flex;
+  align-items: flex-end;
 }
 
 .navbar a {
