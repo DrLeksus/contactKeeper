@@ -3,7 +3,6 @@ import ContactFilter from "../contacts/ContactFilter";
 import Contacts from "../contacts/Contacts";
 import ContactForm from "../contacts/ContactForm";
 import AuthContext from "../../context/auth/authContext";
-import axios from "axios";
 
 const Home = () => {
   const authContext = useContext(AuthContext);

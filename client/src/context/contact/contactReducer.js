@@ -26,14 +26,14 @@ export default (state, action) => {
       return {
         ...state,
         loading: false,
-        contacts: [...state.contacts, action.payload]
+        contacts: [action.payload, ...state.contacts]
       };
     case DELETE_CONTACT:
       console.log("DELETE_CONTACT");
       return {
         ...state,
         loading: false,
-        contacts: state.contacts.filter(c => c.id !== action.payload)
+        contacts: state.contacts.filter(c => c._id !== action.payload)
       };
     case SET_CURRENT:
       console.log("SET_CURRENT");
@@ -61,7 +61,7 @@ export default (state, action) => {
         ...state,
         loading: false,
         contacts: state.contacts.map(contact =>
-          contact.id === action.payload.id ? action.payload : contact
+          contact._id === action.payload._id ? action.payload : contact
         )
       };
     case FILTER_CONTACTS:
