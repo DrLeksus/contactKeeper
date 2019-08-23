@@ -77,6 +77,7 @@ const AuthState = props => {
     };
 
     try {
+      // load res = token
       const res = await axios.post("/api/auth", formData, config);
 
       dispatch({
